@@ -1,0 +1,2 @@
+# SSTAP_ip_crawl_tool
+一个自动获取游戏远程ip，并自动写成SSTAP规则文件的脚本
