@@ -14,3 +14,21 @@
 获取到ip后按下Ctrl+C即可退出程序。
 
 规则文件在程序当前目录中。
+
+
+
+关于如何获取程序名称：
+
+首先打开游戏，然后打开任务管理器，找到游戏进程
+
+![查找程序名第一步](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/1.png)
+
+然后右键点击该进程属性
+
+![查找程序名第二步](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/2.png)
+
+然后在红框位置的即为程序名称：
+
+![查找程序名第三步](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/3.png)
+
+![查找程序名总览](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/4.png)
