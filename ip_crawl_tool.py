@@ -42,7 +42,7 @@ def run(name):
     if name_en == '':
         name_en = 'none'
     if name_zh == '':
-        name_zh == name
+        name_zh = name
     f = open('{}.rules'.format(name), 'wb')
     f.write('#{},{},0,0,1,0,1,0,By-ip_crawl_tool\n'.format(name_en,name_zh).encode())
     f.close()
