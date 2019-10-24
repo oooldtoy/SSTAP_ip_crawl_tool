@@ -11,12 +11,19 @@
 
 进入抓取状态后开启SSTAP全局进入游戏即可自动抓取ip并填写入规则文件。
 
-获取到ip后按下Ctrl+C即可退出程序。
+获取到ip后关闭窗口即可退出程序。
+
+为确保获取规则的完整性，务必保证多运行几分钟（也就是开着全局和工具多玩一会）
 
 规则文件在程序当前目录中。
 
 不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v1.0/ip_crawl_tool.v1.0.exe
 
+更新说明：
+-------
+v2.0<br>
+1.更新同时抓取多个进程的功能<br>
+2.更新规则写入模式，使其覆盖IP段更加全面
 
 关于如何获取程序名称：
 -------
