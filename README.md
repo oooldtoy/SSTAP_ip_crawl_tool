@@ -17,6 +17,11 @@
 
 不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v1.0/ip_crawl_tool.v1.0.exe
 
+更新说明：
+-------
+v2.0<br>
+1.更新同时抓取多个进程的功能<br>
+2.更新规则写入模式，使其覆盖IP段更加全面
 
 关于如何获取程序名称：
 -------
