@@ -17,7 +17,7 @@
 
 规则文件在程序当前目录中。
 
-不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v1.0/ip_crawl_tool.v2.0.exe
+不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v2.0/ip_crawl_tool.v2.0.exe
 
 更新说明：
 -------
