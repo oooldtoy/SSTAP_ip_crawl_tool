@@ -94,11 +94,17 @@ class local():
         return fulldata
 
     def update_data(self,exe_list,name_en,name_zh):
+        
         host = '127.0.0.1'
         port = 12345# 设置端口号
-        s.connect((host,port))
+        try:
+            s.connect((host,port))
         #print(s.recv(1024))
         #print(self.de_msg(self.rec()))
+            print('服务器连接成功')
+        except:
+            print('服务器连接失败')
+            pass
         temp = '#{},{},0,0,1,0,1,0,By-ip_crawl_tool\n'.format(name_en,name_zh)
         while True:
             time.sleep(1)
@@ -128,4 +134,5 @@ def main():
     
 if __name__ == '__main__':
     main()
+    
 
