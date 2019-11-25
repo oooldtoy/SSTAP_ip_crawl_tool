@@ -28,14 +28,17 @@ def listen():
         
 def message_handle(c,addr):
     global r
+    r = '无信息'
     msg = en_msg('服务器连接成功'+str(c))
     c.send(msg)
     time.sleep(0.01)
     c.send(b'$end$')
     while True:
         try:
-            r = de_msg(c.recv(1024))
-            #print(r)
+            r_1 = de_msg(c.recv(1024))
+            if r_1 != '':#防止结束客户端进程后SSTAP传输空字符串给服务器
+                r = r_1
+            print(r)
             #print(addr[0])
             msg = en_msg('已收到信息')
             c.send(msg)
@@ -46,7 +49,8 @@ def message_handle(c,addr):
             #print(c_pool)
             print('连接已关闭'+str(reason))
             print(r)
-            sqlite3_mod.insert_data(r,addr[0],int(time.time()))#插入数据库
+            if '0,0,1,0,1,0,By-ip_crawl_tool' in r:#只接受含有该规则的内容
+                sqlite3_mod.insert_data(r,addr[0],int(time.time()))#插入数据库
             break
             #c.close()
 
