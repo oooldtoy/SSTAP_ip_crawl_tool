@@ -16,6 +16,10 @@ def main():
     data_list = []
     for rules,ip,time in data:
         rules = rules.replace('\n','<br/>')
+        ip = ip.split('.')
+        ip[2] = '*'
+        ip[3] = '*'
+        ip = '.'.join(ip)
         time = timenow(time)
         data_list.append([rules,ip,time])
     cu.close()
