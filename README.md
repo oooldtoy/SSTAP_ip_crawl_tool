@@ -1,9 +1,14 @@
 # SSTAP_ip_crawl_tool
 一个自动获取游戏远程ip，并自动写成SSTAP规则文件的脚本。
 
-此脚本由python3编写，版本为3.7，其他版本未验证。
+此脚本由python3编写，测试过的版本为3.6，3.7，3.8，其他版本未验证（理论上3.0以上都没问题）。
 
-依赖的第三方库为psutil。
+依赖的第三方库为
+
+客户端（SSTAP_ip_crawl_tool.py）psutil,pycryptodome(windows),Crypto(linux);<br>
+服务端（server.py) psutil(本来没有用，忘了删除import),pycryptodome(windows),Crypto(linux);<br>
+网页服务端(web_server.py) flask
+
 
 使用方法：
 -------
@@ -17,16 +22,22 @@
 
 规则文件在程序当前目录中。
 
-不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v3.0/ip_crawl_tool.v3.0.exe
+不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v3.0.1/ip_crawl_tool.v3.0.1.exe
 
 规则更新快速版网页：
 -------
 http://23.101.14.221:5001
 
-使用3.0版本创建的规则均会在此显示
+使用3.0以上版本创建的规则均会在此显示
 
 更新说明：
 -------
+v3.0.1<br>
+1.修复SSTAP代理下无法进行上传规则的bug<br>
+2.隐藏网页端ip后两位<br>
+3.增加客户端连接和连接失败的提示<br>
+4.修改说明
+
 v3.0<br>
 1.增加自动上传规则功能<br>
 2.增加快速规则预览网页服务<br>
