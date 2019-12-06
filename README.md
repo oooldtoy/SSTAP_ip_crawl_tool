@@ -56,15 +56,15 @@ v2.0<br>
 关于如何获取程序名称：
 -------
 
-首先打开游戏，然后打开任务管理器，找到游戏进程<br>
+首先打开游戏，然后打开任务管理器，找到游戏进程
 
 ![查找程序名第一步](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/1.png)
 
-然后右键点击该进程属性<br>
+然后右键点击该进程属性
 
 ![查找程序名第二步](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/2.png)
 
-然后在红框位置的即为程序名称：<br>
+然后在红框位置的即为程序名称：
 
 ![查找程序名第三步](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/3.png)
 
