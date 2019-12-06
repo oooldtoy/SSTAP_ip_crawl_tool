@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{{url_for('login')}}" method="post">
+        <table>
+            <tbody>
+            <tr>
+                <td>用户名：</td>
+                <td><input type="text" placeholder="请输入用户名" name="username"></td>
+                <!--通过name=‘username’来返回用户输入的内容，通过username来传递-->
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td><input type="text" placeholder="请输入密码" name="password"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="登陆"></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</body>
+</html>
