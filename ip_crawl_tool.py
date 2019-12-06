@@ -2,8 +2,9 @@
 
 from os.path import basename
 from psutil import net_connections,Process
+from functools import reduce
 import socket,threading,time
-import crypt
+import crypt,config
 
 def test():
     for conn in net_connections('all'):
@@ -18,6 +19,19 @@ def test():
             msg = '''程序文件名：{}\n本地地址：{}\n远程地址：{}\n连接状态：{}'''.format(filename,laddr,raddr,status)
             print(msg)
 
+#----------判断内网ip---------------#
+
+def ip_into_int(ip):
+    return reduce(lambda x,y:(x<<8)+y,map(int,ip.split('.')))
+
+def is_internal_ip(ip):
+    ip = ip_into_int(ip)
+    net_a = ip_into_int('10.255.255.255') >> 24
+    net_b = ip_into_int('172.31.255.255') >> 20
+    net_c = ip_into_int('192.168.255.255') >> 16
+    return ip >> 24 == net_a or ip >>20 == net_b or ip >> 16 == net_c
+
+#----------判断内网ip---------------#
 
 def search(name):
     ip_temp = []
@@ -32,8 +46,9 @@ def search(name):
         else:
             if filename == name:
                 #print('远程地址：'+str(raddr))
-                if raddr.ip != '127.0.0.1':
-                    ip_temp.append(raddr.ip)
+                if raddr.ip != '127.0.0.1':#判断是否为本机地址
+                    if is_internal_ip(raddr.ip) != True:#判断是否为内网ip
+                        ip_temp.append(raddr.ip)
     return ip_temp
 
 def run(exe_list):
@@ -95,8 +110,9 @@ class local():
 
     def update_data(self,exe_list,name_en,name_zh):
         
-        host = '127.0.0.1'
-        port = 12345# 设置端口号
+
+        host = config.server
+        port = config.port# 设置端口号
         try:
             s.connect((host,port))
         #print(s.recv(1024))
@@ -121,9 +137,9 @@ class local():
 
 def main():
     #test()
-    print('ip_crawl_toolv3.0')
+    print('ip_crawl_tool'+config.version)
     print('3.0版增加上传规则至服务器进行共享，如不想进行规则上传，请使用2.0版')
-    print('快速版规则请访问 http://127.0.0.1:5001')
+    print('快速版规则请访问 '+config.web_url)
     a = input('请输入游戏进程名（可启动游戏后在任务管理器 进程 中查询）\n如果有多个进程请使用英文逗号分隔开：')
     exe_list = a.split(',')
     print('将检测以下程序')
