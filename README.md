@@ -6,13 +6,13 @@
 依赖的第三方库为
 
 客户端（SSTAP_ip_crawl_tool.py）psutil,pycryptodome(windows),Crypto(linux);<br>
-服务端（server.py) psutil(本来没有用，忘了删除import),pycryptodome(windows),Crypto(linux);<br>
+服务端（server.py),pycryptodome(windows),Crypto(linux);<br>
 网页服务端(web_server.py) flask
 
 
 使用方法：
 -------
-启动程序(ip_crawl_tool.py)后输入需要抓取IP的程序名，然后根据提示输入游戏英文名、中文名随即进入抓取状态。
+启动程序(ip_crawl_tool.py或者ip_crawl_tool.v***.exe)后输入需要抓取IP的程序名，然后根据提示输入游戏英文名、中文名随即进入抓取状态。
 
 进入抓取状态后开启SSTAP全局进入游戏即可自动抓取ip并填写入规则文件。
 
@@ -24,6 +24,8 @@
 
 不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v3.0.1/ip_crawl_tool.v3.0.1.exe
 
+特别注意：3.0.1版本某些环境可能导致运行出错的情况，请更新至3.1版本
+
 规则更新快速版网页：
 -------
 http://23.101.14.221:5001
@@ -32,6 +34,10 @@ http://23.101.14.221:5001
 
 更新说明：
 -------
+v3.1<br>
+1.增加web端管理员页面<br>
+2.所有配置信息转移至config.py<br>
+3.修复某些环境下运行打包的exe文件报错问题<br>
 v3.0.1<br>
 1.修复SSTAP代理下无法进行上传规则的bug<br>
 2.隐藏网页端ip后两位<br>
@@ -50,15 +56,15 @@ v2.0<br>
 关于如何获取程序名称：
 -------
 
-首先打开游戏，然后打开任务管理器，找到游戏进程
+首先打开游戏，然后打开任务管理器，找到游戏进程<br>
 
 ![查找程序名第一步](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/1.png)
 
-然后右键点击该进程属性
+然后右键点击该进程属性<br>
 
 ![查找程序名第二步](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/2.png)
 
-然后在红框位置的即为程序名称：
+然后在红框位置的即为程序名称：<br>
 
 ![查找程序名第三步](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/3.png)
 
