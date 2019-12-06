@@ -1,6 +1,7 @@
 from Crypto.Cipher import AES
+import config
 
-key = '5789654235468746'#加密key
+key = config.crypto_key
 mode = AES.MODE_CBC
 iv = key
 
