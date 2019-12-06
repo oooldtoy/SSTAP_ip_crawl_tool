@@ -1,9 +1,9 @@
-import socket,threading,psutil,time
-import crypt,sqlite3_mod
+import socket,threading,time
+import crypt,sqlite3_mod,config
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)# 创建 socket 对象
 host = '0.0.0.0'
-port = 12345# 设置端口
+port = config.port# 设置端口
 s.bind((host, port))# 绑定端口
 print(host,port)
 c_pool = []#连接池
