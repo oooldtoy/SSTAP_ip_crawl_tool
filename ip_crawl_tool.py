@@ -46,7 +46,7 @@ def search(name):
         else:
             if filename == name:
                 #print('远程地址：'+str(raddr))
-                if raddr.ip != '127.0.0.1':#判断是否为本机地址
+                if raddr.ip != '127.0.0.1' and ':' not in raddr.ip:#判断是否为本机地址以及剔除ipv6
                     if is_internal_ip(raddr.ip) != True:#判断是否为内网ip
                         ip_temp.append(raddr.ip)
     return ip_temp
@@ -72,7 +72,7 @@ def run(exe_list):
             ip_temp = search(name)
             if ip_temp != []:
                 for i in ip_temp:
-                    if i not in ip_list and ':' not in i:#:用于过滤ipv6
+                    if i not in ip_list:#:用于过滤重复ip
                         ip_list.append(i)
                         print('发现{}新ip'.format(name))
                         print(i)
@@ -128,7 +128,8 @@ class local():
             f_temp = f.read()
             if f_temp != temp:#判断和上次传送结果是否重复，降低服务器压力
                 temp = f_temp
-                msg = self.en_msg(f_temp)
+                msg = {'rules':f_temp,'process':exe_list,'version':config.version}#加入进程名和版本号
+                msg = self.en_msg(str(msg))
                 s.send(msg)
                 f.close()
                 continue
