@@ -7,6 +7,12 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 data_base = config.data_base
 
+
+@app.route('/')
+def hello_world():
+    return 'hello world'
+
+
 user_list = [[config.password,config.username]]
 
 def timenow(timepoint):#转换时间戳
@@ -14,32 +20,32 @@ def timenow(timepoint):#转换时间戳
     timetranslate = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
     return timetranslate
 
-@app.route('/')
-def main():
+@app.route('/rules/')
+def rules():
     con = sqlite3.connect(data_base)
     cu = con.cursor()
-    data = cu.execute("select rules,ip,time from rules")
+    data = cu.execute("select rules,process,ip,time from rules")
     data_list = []
-    for rules,ip,time in data:
+    for rules,process,ip,time in data:
         rules = rules.replace('\n','<br/>')
         ip = ip.split('.')
         ip[2] = '*'
         ip[3] = '*'
         ip = '.'.join(ip)
         time = timenow(time)
-        data_list.append([rules,ip,time])
+        data_list.append([rules,process,ip,time])
     cu.close()
     con.close()
     data_list = list(reversed(data_list))#反转列表，最新的在最前面
-    return render_template('main.html',data=data_list)
+    return render_template('rules.html',data=data_list)
 
-@app.route('/login/',methods=['POST','GET'])
-def login():
+@app.route('/rules/login/',methods=['POST','GET'])
+def rules_login():
     if session.get('username'):
-        return redirect(url_for('modify'))
+        return redirect(url_for('rules_modify'))
     else:
         if request.method=='GET':
-            return render_template('login.html')
+            return render_template('rules_login.html')
         else:
             username = request.form.get('username')
             password = request.form.get('password')
@@ -48,24 +54,25 @@ def login():
                 session['username'] = username#登陆成功设置session
                 session.permanent = True#
                 app.permanent_session_lifetime = timedelta(minutes=10)#设置session到期时间
-                return redirect(url_for('modify'))
+                return redirect(url_for('rules_modify'))
             else:
-                return render_template('login.html')
+                return render_template('rules_login.html')
 
-@app.route('/modify/',methods=['POST','GET'])
-def modify():
+@app.route('/rules/modify/',methods=['POST','GET'])
+def rules_modify():
     if session.get('username'):
         con = sqlite3.connect(data_base)
         cu = con.cursor()
-        data = cu.execute("select rules,ip,time from rules")
+        data = cu.execute("select rules,process,ip,time,version from rules")
         data_list = []
-        for rules,ip,time in data:
+        for rules,process,ip,time,version in data:
             rules = rules.replace('\n','<br/>')
-            data_list.append([rules,ip,time])
+            data_list.append([rules,process,ip,time,version])
         cu.close()
         con.close()
         if request.method=='GET':
-            return render_template('main_modify.html',data=data_list)
+            data_list = list(reversed(data_list))#反转列表，最新的在最前面
+            return render_template('rules_modify.html',data=data_list)
         else:
             #print(data_list)
             data_post = str(request.form)  # 如果是get请求就用args
@@ -80,16 +87,17 @@ def modify():
                 cu = con.cursor()
                 data = cu.execute("delete from rules where time = {}".format(i))
                 con.commit()
-                data = cu.execute("select rules,ip,time from rules")
+                data = cu.execute("select rules,process,ip,time,version from rules")
                 data_list = []
-                for rules,ip,time in data:
+                for rules,process,ip,time,version in data:
                     rules = rules.replace('\n','<br/>')
-                    data_list.append([rules,ip,time])
+                    data_list.append([rules,process,ip,time,version])
                 cu.close()
                 con.close()
-            return render_template('main_modify.html',data=data_list)
+            data_list = list(reversed(data_list))#反转列表，最新的在最前面
+            return render_template('rules_modify.html',data=data_list)
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('rules_login'))
 
 if __name__=='__main__':
     app.run(host='0.0.0.0',port=config.web_port)
