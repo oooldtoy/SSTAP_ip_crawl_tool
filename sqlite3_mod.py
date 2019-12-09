@@ -27,5 +27,6 @@ def delete_data(i):
     con.close()
 
 if __name__ == '__main__':
+    pass
     #create_table()
     #insert_data('dsafas','fdsafas',23124.1234)
