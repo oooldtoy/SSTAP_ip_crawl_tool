@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,20 +6,25 @@
 </head>
 <body>
 <h1>SSTAP Rules</h1>
+<h4>本项目地址：</h4> <a href="https://github.com/oooldtoy/SSTAP_ip_crawl_tool">https://github.com/oooldtoy/SSTAP_ip_crawl_tool</a>
 <h4>规则由热心网友提供，本站不对内容可用性负责<br>使用Ctrl+F在浏览器内搜索想寻找的规则名称</h4>
 <table border="1"cellpadding="5">
     <tr>
         <th>规则</th>
+		<th>进程</th>
         <th>贡献者</th>
 		<th>时间</th>
+		<th>版本</th>
 		<th>选择</th>
     </tr>
-	<form action="{{url_for('modify')}}" method="post">
+	<form action="{{url_for('rules_modify')}}" method="post">
     <tr>
         {% for i in data %}
         <td>{{i[0]|safe}}</td>
         <td>{{i[1]|safe}}</td>
 		<td>{{i[2]|safe}}</td>
+		<td>{{i[3]|safe}}</td>
+		<td>{{i[4]|safe}}</td>
 		<td><input type="checkbox" value="删除" name="{{i[2]}}">删除</td>
 		
     </tr>
