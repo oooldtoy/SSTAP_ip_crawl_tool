@@ -51,7 +51,7 @@ def message_handle(c,addr):
             print(r)
             if "{'rules':" not in r:#兼容3.1级以下的客户端
                 if '0,0,1,0,1,0,By-ip_crawl_tool' in r:#只接受含有该规则的内容
-                    sqlite3_mod.insert_data(r,'',addr[0],int(time.time()))#插入数据库,第二位用空白字符串代替
+                    sqlite3_mod.insert_data(r,'',addr[0],int(time.time()),'')#插入数据库,第二位用空白字符串代替
             else:
                 r = eval(r)
                 if '0,0,1,0,1,0,By-ip_crawl_tool' in r['rules']:
