@@ -22,6 +22,8 @@
 
 规则文件在程序当前目录中。
 
+<font color=#00ffff>**请注意：3.3.3版本后，增加的udp协议抓取，需打开windows防火墙，然后使用管理员权限运行程序（主要是为了能够打开和读取防火墙日志）。**</font>
+
 不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v3.2/ip_crawl_tool.v3.2.exe
 
 特别注意：3.0.1版本某些环境可能导致运行出错的情况，请更新至3.1版本
@@ -34,6 +36,8 @@ http://www.oldtoy.online/rules
 
 更新说明：
 -------
+v3.3.3<br>
+1.增加udp协议ip抓取<br>
 v3.2<br>
 1.修复ipv6过滤<br>
 2.增加进程名和版本号上传<br>
