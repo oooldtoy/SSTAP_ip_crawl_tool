@@ -4,7 +4,10 @@ from os.path import basename
 from psutil import net_connections,Process
 from functools import reduce
 import socket,threading,time
-import crypt,config
+import crypt,config,udp
+
+ip_list = []
+
 
 def test():
     for conn in net_connections('all'):
@@ -52,6 +55,7 @@ def search(name):
     return ip_temp
 
 def run(exe_list):
+    global udp_point
     name_en = input('请输入游戏英文名（按回车跳过）：')
     name_zh = input('请输入游戏中文名（按回车默认为{}），注意！这将影响到SSTAP显示的名称！：'.format(str(exe_list)))
     if name_en == '':
@@ -64,7 +68,6 @@ def run(exe_list):
     l = local()#添加传输线程
     run_socket = threading.Thread(target=l.update_data,args=(exe_list,name_en,name_zh))#添加传输线程
     run_socket.start()#添加传输线程
-    ip_list = []
     print('正在检测{}远程ip,可随时关闭窗口停止终止程序。\n现在你可以打开SSTAP全局，并启动游戏，发现的ip将会自动记录到当前目录的rules文件中'.format(str(exe_list)))
     while True:
         time.sleep(0.2)#加入阻塞降低cpu占用
@@ -84,6 +87,21 @@ def run(exe_list):
                             f.write(i.encode() +b'/24\n')
                             ip_list.append(i)
                         f.close()
+        if udp_point == '1':
+            #print('正在检测udp')
+            for i in udp.udp_crawl(exe_list):
+                if i not in ip_list:
+                    ip_list.append(i)
+                    f = open('{}.rules' .format(str(exe_list)), 'ab+')
+                    i = i.split('.')
+                    i[3] = '0'
+                    i = '.'.join(i)
+                    if i not in ip_list:#避免重复写入
+                        if is_internal_ip(i) != True:#判断是否为内网ip
+                            ip_temp.append(raddr.ip)
+                            f.write(i.encode() +b'/24\n')
+                            ip_list.append(i)
+                    f.close()
 
 
 class local():
@@ -138,10 +156,12 @@ class local():
 
 def main():
     #test()
+    global udp_point
     print('ip_crawl_tool'+config.version)
     print('3.0版增加上传规则至服务器进行共享，如不想进行规则上传，请使用2.0版')
     print('快速版规则请访问 '+config.web_url)
     a = input('请输入游戏进程名（可启动游戏后在任务管理器 进程 中查询）\n如果有多个进程请使用英文逗号分隔开：')
+    udp_point = input('是否抓取udp协议ip，默认不抓取。\n抓取udp协议ip需使用管理员权限运行，且需要开启windows防火墙，请确保使用管理员权限运行本程序和开启了防火请。\n如需抓取udp协议请输入1:')
     exe_list = a.split(',')
     print('将检测以下程序')
     for exe in exe_list:
