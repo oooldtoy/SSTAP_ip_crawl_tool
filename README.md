@@ -5,7 +5,7 @@
 
 依赖的第三方库为
 
-客户端（SSTAP_ip_crawl_tool.py）psutil,pycryptodome(windows),Crypto(linux);<br>
+客户端（SSTAP_ip_crawl_tool.py）psutil,pycryptodome(windows);<br>
 服务端（server.py),pycryptodome(windows),Crypto(linux);<br>
 网页服务端(web_server.py) flask
 
@@ -22,9 +22,9 @@
 
 规则文件在程序当前目录中。
 
-<font color=#00ffff>**请注意：3.3.3版本后，增加的udp协议抓取，需打开windows防火墙，然后使用管理员权限运行程序（主要是为了能够打开和读取防火墙日志）。**</font>
+**请注意：3.3.3版本后，增加的udp协议抓取，需打开windows防火墙，然后使用管理员权限运行程序（主要是为了能够打开和读取防火墙日志）。**
 
-不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v3.2/ip_crawl_tool.v3.2.exe
+不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v3.3.3/ip_crawl_tool.v3.3.3.exe
 
 
 规则更新快速版网页：
