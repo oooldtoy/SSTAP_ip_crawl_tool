@@ -19,13 +19,13 @@ def search_pid(exe_list):#通过进程名查询pid
 
 def udp_crawl(exe_list):
     a = os.popen('netsh firewall set logging %systemroot%\system32\LogFiles\Firewall\pfirewall.log 1024 ENABLE ENABLE')
-    b = os.popen('type %systemroot%\system32\LogFiles\Firewall\pfirewall.log')
+    log = os.popen('type %systemroot%\system32\LogFiles\Firewall\pfirewall.log')
     port_list_1 = []#所选进程所占用端口
     port_list_0 = []#非所选进程占用端口
     
     pid_list = search_pid(exe_list)
     #print(pid_list)
-    for i in b:
+    for i in log:
         #日志中寻找UDP记录
         if 'UDP' in i:
             j = i.split(' ')
