@@ -98,7 +98,7 @@ def run(exe_list):
                     i = '.'.join(i)
                     if i not in ip_list:#避免重复写入
                         if is_internal_ip(i) != True:#判断是否为内网ip
-                            ip_temp.append(raddr.ip)
+                            ip_temp.append(i)
                             f.write(i.encode() +b'/24\n')
                             ip_list.append(i)
                     f.close()
