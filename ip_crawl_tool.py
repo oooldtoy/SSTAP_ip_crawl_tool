@@ -77,7 +77,7 @@ def run(exe_list):
                 for i in ip_temp:
                     if i not in ip_list:#:用于过滤重复ip
                         ip_list.append(i)
-                        print('发现{}新ip'.format(name))
+                        print('发现{}新ip--tcp'.format(name))
                         print(i)
                         f = open('{}.rules' .format(str(exe_list)), 'ab+')
                         i = i.split('.')
