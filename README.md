@@ -24,7 +24,7 @@
 
 **请注意：3.3.3版本后，增加的udp协议抓取，需打开windows防火墙，然后使用管理员权限运行程序（主要是为了能够打开和读取防火墙日志）。**
 
-不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v3.3.5/ip_crawl_tool.v3.3.5.exe
+不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v3.3.4/ip_crawl_tool.v3.3.4.exe
 
 
 规则更新快速版网页：
@@ -35,7 +35,7 @@ http://www.oldtoy.online/rules
 
 更新说明：
 -------
-v3.3.5<br>
+v3.3.5（已删除，bug待修复）<br>
 1.bug修复<br>
 2.增加udp从属进程显示<br>
 v3.3.4<br>
