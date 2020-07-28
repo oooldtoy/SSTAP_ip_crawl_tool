@@ -35,8 +35,8 @@ http://www.oldtoy.online/rules
 
 更新说明：
 -------
-v3.3.6
-1.修复ip分享
+v3.3.6<br>
+1.修复ip分享<br>
 v3.3.5（已删除，bug待修复）<br>
 1.bug修复<br>
 2.增加udp从属进程显示<br>
