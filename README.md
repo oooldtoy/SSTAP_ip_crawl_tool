@@ -38,7 +38,6 @@ http://www.oldtoy.online/rules
 v3.4<br>
 1.修复报错bug<br>
 2.修复抓取到内网ip和包丢ip的bug<br>
-v3.3.5（已删除，bug待修复）<br>
 v3.3.6<br>
 1.修复ip分享<br>
 v3.3.5（已删除，bug待修复）<br>
