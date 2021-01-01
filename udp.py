@@ -69,8 +69,12 @@ def udp_crawl(exe_list):
                                 exe = exe
                                 break
                         if is_internal_ip(log_list[5]) != True and log_list[5].split('.')[0] !='127':
-                            ip_list_udp.append(log_list[5])
-                            print(exe+'\n'+'发现新ip'+log_list[5]+'--udp')
+                            f_conf = open('config.txt','r')
+                            ip_list = f_conf.read()
+                            if log_list[5] not in ip_list:
+                                ip_list_udp.append(log_list[5])
+                                print('发现新ip '+exe+'--udp\n'+log_list[5])
+                            f_conf.close()
                 else:
                     port_list_0.append(log_list[6])
     #print(len(ip_list_udp))
@@ -80,4 +84,3 @@ if __name__ == '__main__':
     #print(search_pid(['aria2c.exe','dlpc.exe','chrome.exe']))
     #print(pid_dist)
     udp_crawl(['aria2c.exe'])
-
