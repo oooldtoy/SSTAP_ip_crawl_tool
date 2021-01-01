@@ -1,7 +1,13 @@
 # SSTAP_ip_crawl_tool
-一个自动获取游戏远程ip，并自动写成SSTAP规则文件的脚本。
+一个自动获取游戏远程ip，并自动写成SSTAP/NETCH规则文件的脚本。
 
-此脚本由python3编写，测试过的版本为3.6，3.7，3.8，其他版本未验证（理论上3.0以上都没问题）。
+相关项目：
+
+SSTap-Rule https://github.com/FQrabbit/SSTap-Rule
+
+Netch https://github.com/NetchX/Netch
+
+此脚本由python3编写，测试过的版本为3.6，3.7，3.8，3.9其他版本未验证（理论上3.0以上都没问题）。
 
 依赖的第三方库为
 
@@ -13,7 +19,7 @@
 -------
 启动程序(ip_crawl_tool.py或者ip_crawl_tool.v***.exe)后输入需要抓取IP的程序名，然后根据提示输入游戏英文名、中文名随即进入抓取状态。
 
-进入抓取状态后开启SSTAP全局进入游戏即可自动抓取ip并填写入规则文件。
+进入抓取状态后开启全局进入游戏即可自动抓取ip并填写入规则文件。
 
 获取到ip后关闭窗口即可退出程序。
 
@@ -22,6 +28,8 @@
 规则文件在程序当前目录中。
 
 **请注意：3.3.3版本后，增加的udp协议抓取，需打开windows防火墙，然后使用管理员权限运行程序（主要是为了能够打开和读取防火墙日志）。**
+
+**如出现命令行无法显示中文的情况，请更换cmd默认编码为936**
 
 不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v4.0/ip_crawl_tool.v4.0.exe
 
