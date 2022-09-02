@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 import os
 from psutil import net_connections,Process,pids
 from functools import reduce
+from print_log import print_log
 
 #----------判断内网ip---------------#
 
@@ -37,7 +39,7 @@ def search_pid(exe_list):#通过进程名查询pid
     return pid_list
     
 
-def udp_crawl(exe_list):
+def udp_crawl(exe_list,is_print):
     os.popen('netsh firewall set logging %systemroot%\system32\LogFiles\Firewall\pfirewall.log 1024 ENABLE ENABLE')
     log = os.popen('type %systemroot%\system32\LogFiles\Firewall\pfirewall.log')
     port_list_1 = []#所选进程所占用端口
@@ -69,11 +71,11 @@ def udp_crawl(exe_list):
                                 exe = exe
                                 break
                         if is_internal_ip(log_list[5]) != True and log_list[5].split('.')[0] !='127':
-                            f_conf = open('config.txt','r')
+                            f_conf = open('temp.txt','r')
                             ip_list = f_conf.read()
                             if log_list[5] not in ip_list:
                                 ip_list_udp.append(log_list[5])
-                                print('发现新ip '+exe+'--udp\n'+log_list[5])
+                                print_log('发现新ip '+exe+'--udp\n'+log_list[5],is_print)
                             f_conf.close()
                 else:
                     port_list_0.append(log_list[6])
