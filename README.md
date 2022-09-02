@@ -17,7 +17,7 @@ Netch https://github.com/NetchX/Netch
 
 使用方法：
 -------
-启动程序(ip_crawl_tool.py或者ip_crawl_tool.v***.exe)后输入需要抓取IP的程序名，然后根据提示输入游戏英文名、中文名随即进入抓取状态。
+启动程序(ip_crawl_tool.py或者ip_crawl_tool.v***.exe，ui版为gui.py或ip_crawl_tool_ui.v***.exe)后输入需要抓取IP的程序名，然后根据提示输入游戏英文名、中文名随即进入抓取状态。
 
 进入抓取状态后开启全局进入游戏即可自动抓取ip并填写入规则文件。
 
@@ -31,7 +31,12 @@ Netch https://github.com/NetchX/Netch
 
 **如出现命令行无法显示中文的情况，请更换cmd默认编码为936**
 
-不会python可以选择下载release中打包好的exe可执行文件https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v4.0/ip_crawl_tool.v4.0.exe
+不会python可以选择下载release中打包好的exe可执行文件
+
+命令行版：https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v4.1/ip_crawl_tool.v4.1.exe
+
+ui版：https://github.com/oooldtoy/SSTAP_ip_crawl_tool/releases/download/v4.1/ip_crawl_tool_ui.v4.1.exe
+
 
 
 
