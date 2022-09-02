@@ -38,6 +38,9 @@ Netch https://github.com/NetchX/Netch
 
 更新说明：
 -------
+v4.1<br>
+1.增加UI<br>
+![UI](https://raw.githubusercontent.com/oooldtoy/SSTAP_ip_crawl_tool/master/MD_IMG/5.png)
 v4.0<br>
 1.删除上传服务器功能<br>
 2.增加netch模式<br>
