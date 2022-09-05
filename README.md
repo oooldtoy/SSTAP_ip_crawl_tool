@@ -7,7 +7,7 @@ SSTap-Rule https://github.com/FQrabbit/SSTap-Rule
 
 Netch https://github.com/NetchX/Netch
 
-此脚本由python3编写，测试过的版本为3.6，3.7，3.8，3.9其他版本未验证（理论上3.0以上都没问题）。
+此脚本由python3编写，测试过的版本为3.9其他版本未验证（理论上3.0以上都没问题）。
 
 依赖的第三方库为
 
