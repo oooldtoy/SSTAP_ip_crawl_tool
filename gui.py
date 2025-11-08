@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import ip_crawl_tool,path_mod
+import ip_crawl_tool
+from mods import path_mod,createToolTip
 from tkinter import Tk,Label,Entry,StringVar,Button,Checkbutton,Radiobutton,messagebox,scrolledtext
 from tkinter.filedialog import askdirectory
 import time,threading
-##import Pmw
 
 exe_list = []
 is_print = 0
@@ -20,7 +20,7 @@ def get_process():
     global exe_list
     path = e_path.get()
     if '/' in path:
-        exe_list = path_mod.run(path)
+        exe_list = path_mod(path,exe_list)
     else:
         exe_list = path.split(',')
     return exe_list
@@ -35,6 +35,7 @@ def insert_scrolledtext():
         if text_all_1 != text_all:
             insert_text = text_all.replace(text_all_1, '')
             print_text.insert('end', insert_text)
+            print_text.see('end')
         else:
             print_text.insert('end', '')
         text_all_1 = text_all
@@ -61,26 +62,30 @@ r_sstapmode = Radiobutton(root,text = 'sstap',variable = mode,value='1')
 r_netchmode = Radiobutton(root,text = 'netch',variable = mode,value='2')
 r_sstapmode.place(x=160,y=20)
 r_netchmode.place(x=160,y=40)
-Label(root, text='填入游戏进程名或扫描的文件夹路径①').place(x=20,y=80)
+Label(root, text='填入游戏进程名或扫描的文件夹路径').place(x=20,y=80)
 e_path = Entry(root, textvariable=var_path)
-e_path.place(x=20,y=110,width=160,height=29)
-##e_path_tips = Pmw.Balloon(root)
-##e_path_tips.bind(e_path, "如果有多个进程请使用英文逗号分隔开")
+e_path.place(x=20,y=110,width=130,height=29)
+createToolTip(e_path,'如果有多个进程请使用英文逗号分隔开')
 b_path = Button(root, text='选择文件夹', command=selectpath)
 b_path.place(x=150,y=110)
 Label(root, text='请输入游戏英文名（可为空）').place(x=20,y=150)
 e_name_en = Entry(root)
 e_name_en.place(x=20,y=180,width=200,height=29)
-Label(root, text='请输入游戏中文名,默认为进程名②').place(x=20,y=220)
+Label(root, text='请输入游戏中文名,默认为进程名').place(x=20,y=220)
 e_name_zh = Entry(root)
 e_name_zh.place(x=20,y=250,width=200,height=29)
-##e_name_zh_tips = Pmw.Balloon(root)
-##e_name_zh_tips.bind(e_name_zh, "注意！这将影响到SSTAP显示的名称！")
+createToolTip(e_name_zh,'注意！这将影响到SSTAP显示的名称！')
 b_start = Button(root, text='开始', command=button)
 b_start.place(x=100,y=300)
 print_text = scrolledtext.ScrolledText(root)
 print_text.place(x=250,y=20,width=300,height=310)
-print_text.insert('end', '①如果有多个进程请使用英文逗号分隔开\n')
-print_text.insert('end', '②注意！这将影响到SSTAP显示的名称！\n')
 root.geometry("560x350")
 root.mainloop()
+
+#todo 完成悬浮显示（已完成）
+#临时文件优化（已经把临时文件迁移，剩下关闭时删除）
+#优化scrolledtext自动显示到末尾（已完成）
+#优化输入栏显示(已完成）
+#增加重启恢复上次一的参数
+#is_print参数为log后台打印参数，看是否需要优化
+#将临时文件和log文件合并，通过log文件检查重复性

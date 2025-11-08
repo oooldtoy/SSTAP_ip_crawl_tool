@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import time,os
-import config,udp,tcp,path_mod
+import os
+import config,udp,tcp
 import ctypes,sys,time
-from print_log import print_log
+from mods import print_log,path_mod
+from tempfile import NamedTemporaryFile
 
 def run(exe_list,udp_point,mode,name_en,name_zh,is_print):
     print(mode,name_en,name_zh)
-    f = open('temp.txt', 'w')
+    temp_file = NamedTemporaryFile(mode='w', delete=False)
+    temp_filename = temp_file.name
+    print(temp_filename)
+    f = open(temp_filename, 'w')
     f.close()
-    f_log = open('log.txt','w')
+    f_log = open('log.txt','w')#重置log文件
     f_log.close()
     if name_en == '':
         name_en = 'none'
@@ -31,29 +35,30 @@ def run(exe_list,udp_point,mode,name_en,name_zh,is_print):
     elif mode == '2':
         f.write('# {} {} By-ip_crawl_tool,1\n'.format(name_en, name_zh).encode())
     f.close()
+    print_log(','.join(exe_list), is_print)
     print_log('正在检测{}远程ip,可随时关闭窗口停止终止程序。\n现在你可以打开全局，并启动游戏，发现的ip将会自动记录到当前目录的rules文件中'.format(str(exe_list)),is_print)
     while True:
         time.sleep(0.2)#加入阻塞降低cpu占用
-        ip_temp = tcp.tcp_crawl(exe_list,is_print)
+        ip_temp = tcp.tcp_crawl(exe_list,is_print,temp_filename)
         if ip_temp != []:
             for i in ip_temp:
-                f_conf = open('temp.txt','r+')
+                f_conf = open(temp_filename,'r+')
                 ip_list = f_conf.read()
                 if i not in ip_list:#:用于过滤重复ip
                     f_conf.close()
-                    f_conf = open('temp.txt','a')
+                    f_conf = open(temp_filename,'a')
                     f_conf.write(' '+i+' ')
                     f_conf.close()
                     f = open('{}.rules' .format(rules_name), 'ab+')
                     i = i.split('.')
                     i[3] = '0'
                     i = '.'.join(i)
-                    f_conf = open('temp.txt','r+')
+                    f_conf = open(temp_filename,'r+')
                     ip_list = f_conf.read()
                     if i not in ip_list:#避免重复写入
                         f.write(i.encode() +b'/24\n')
                         f_conf.close()
-                        f_conf = open('temp.txt','a')
+                        f_conf = open(temp_filename,'a')
                         f_conf.write(' '+i+' ')
                         f_conf.close()
                     else:
@@ -63,25 +68,25 @@ def run(exe_list,udp_point,mode,name_en,name_zh,is_print):
                     f_conf.close()
         if udp_point == 'udp':
             #print('正在检测udp')
-            for i in udp.udp_crawl(exe_list,is_print):
-                f_conf = open('temp.txt','r+')
+            for i in udp.udp_crawl(exe_list,is_print,temp_filename):
+                f_conf = open(temp_filename,'r+')
                 ip_list = f_conf.read()
                 if i not in ip_list:
                     f_conf.close()
-                    f_conf = open('temp.txt','a')
+                    f_conf = open(temp_filename,'a')
                     f_conf.write(' '+i+' ')
                     f_conf.close()
                     f = open('{}.rules' .format(rules_name), 'ab+')
                     i = i.split('.')
                     i[3] = '0'
                     i = '.'.join(i)
-                    f_conf = open('temp.txt','r+')
+                    f_conf = open(temp_filename,'r+')
                     ip_list = f_conf.read()
                     if i not in ip_list:#避免重复写入
                         ip_temp.append(i)
                         f.write(i.encode() +b'/24\n')
                         f_conf.close()
-                        f_conf = open('temp.txt','a')
+                        f_conf = open(temp_filename,'a')
                         f_conf.write(' '+i+' ')
                         f_conf.close()
                     else:
@@ -118,7 +123,7 @@ def main():
             break
         elif input_mode == '2':
             exe_path = input('请输入需要扫描的文件夹路径：')
-            exe_list = path_mod.run(exe_path)
+            exe_list = path_mod(exe_path,exe_list=[])
             break
         else:
             print('输入错误，请重新输入')
