@@ -82,10 +82,3 @@ print_text.place(x=250,y=20,width=300,height=310)
 root.geometry("560x350")
 root.mainloop()
 
-#todo 完成悬浮显示（已完成）
-#临时文件优化（已经把临时文件迁移，剩下关闭时删除）
-#优化scrolledtext自动显示到末尾（已完成）
-#优化输入栏显示(已完成）
-#增加重启恢复上次一的参数
-#is_print参数为log后台打印参数，看是否需要优化
-#将临时文件和log文件合并，通过log文件检查重复性
