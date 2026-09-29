@@ -1,88 +1,77 @@
 # -*- coding: utf-8 -*-
 import os
-from psutil import net_connections,Process,pids
-from functools import reduce
-from mods import print_log
+import subprocess
+import psutil
+from mods import print_log, is_internal_ip
 
-#----------判断内网ip---------------#
+pid_map = {} # 进程名对应pid列表
+udp_ip_list = []
 
-def ip_into_int(ip):
-    return reduce(lambda x,y:(x<<8)+y,map(int,ip.split('.')))
-
-def is_internal_ip(ip):
-    ip = ip_into_int(ip)
-    net_a = ip_into_int('10.255.255.255') >> 24
-    net_b = ip_into_int('172.31.255.255') >> 20
-    net_c = ip_into_int('192.168.255.255') >> 16
-    return ip >> 24 == net_a or ip >>20 == net_b or ip >> 16 == net_c
-
-#----------判断内网ip---------------#
-
-#os.popen('firewall.cpl')
-ip_list_udp = []
-pid_list = []
-pid_dist = {}#进程名对应pid列表
-def search_pid(exe_list):#通过进程名查询pid
-    for exe in exe_list:
-        pid_dist[exe] = []
-    a = pids()
-    for i in a:
+def find_pids_by_name(process_list): #通过进程名查询pid
+    active_pids = []
+    pid_map.clear()
+    for exe in process_list:
+        pid_map[exe] = []
+    
+    for proc in psutil.process_iter(['pid', 'name']):
         try:
-            #print(Process(i).name())
-            if Process(i).name() in exe_list:
-                for exe in exe_list:
-                    if Process(i).name() == exe:
-                        pid_dist[exe].append(i)
-                pid_list.append(str(i))
-        except :
-            continue
-    return pid_list
-    
+            name = proc.info['name']
+            if name in process_list:
+                pid_str = str(proc.info['pid'])
+                pid_map[name].append(pid_str)
+                active_pids.append(pid_str)
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            pass
+    return active_pids
 
-def udp_crawl(exe_list,is_print,temp_filename):
-    os.popen('netsh firewall set logging %systemroot%\system32\LogFiles\Firewall\pfirewall.log 1024 ENABLE ENABLE')
-    log = os.popen('type %systemroot%\system32\LogFiles\Firewall\pfirewall.log')
-    port_list_1 = []#所选进程所占用端口
-    port_list_0 = []#非所选进程占用端口
+def udp_crawl(process_list, enable_logging, seen_ips):
+    subprocess.run(['netsh', 'firewall', 'set', 'logging', r'%systemroot%\system32\LogFiles\Firewall\pfirewall.log', '1024', 'ENABLE', 'ENABLE'], capture_output=True, shell=True)
     
-    pid_list = search_pid(exe_list)
-    #print(pid_list)
-    for each_logline in log:
-        #日志中寻找UDP记录
-        if 'UDP' in each_logline:
-            log_list = each_logline.split(' ')
-            if ':' in log_list[5]:#去除ipv6
+    log_path = os.path.expandvars(r'%systemroot%\system32\LogFiles\Firewall\pfirewall.log')
+    try:
+        with open(log_path, 'r', encoding='ansi', errors='ignore') as f:
+            log = f.readlines()
+    except IOError:
+        print_log('无法读取防火墙日志，请确保拥有管理员权限', enable_logging)
+        return []
+
+    active_pids = find_pids_by_name(process_list)
+    
+    # 建立当前系统全部 UDP 本地端口到 PID 的映射字典
+    port_to_pid = {}
+    for conn in psutil.net_connections('udp'):
+        if conn.pid is not None and conn.laddr:
+            port_to_pid[str(conn.laddr.port)] = str(conn.pid)
+            
+    found_ips = []
+    
+    for log_line in log:
+        if 'UDP' in log_line:
+            log_parts = log_line.split(' ')
+            if len(log_parts) < 7:
                 continue
-            try:
-                if log_list[6] in port_list_0:#重复非占用端口直接跳过
-                    continue
-            except IndexError:
+                
+            remote_ip = log_parts[5]
+            local_port = log_parts[6]
+            
+            if ':' in remote_ip: #去除ipv6
                 continue
-            for i in os.popen('netstat -ano|findstr "'+log_list[6]+'"'):
-                #print(log_list[6])
-                #通过记录发现本地端口，并找到占用本地端口的PID
-                j = i.split(' ')
-                j = list(filter(None,j))#过滤空字符串
-                if j[3].replace('\n','') in pid_list:
-                    port_list_1.append(log_list[6])
-                    if log_list[5] not in ip_list_udp:
-                        for exe in pid_dist:
-                            if j[3].replace('\n','') in pid_dist[exe]:#获取ip从属进程
-                                exe = exe
-                                break
-                        if is_internal_ip(log_list[5]) != True and log_list[5].split('.')[0] !='127':
-                            f_conf = open(temp_filename,'r')
-                            ip_list = f_conf.read()
-                            if log_list[5] not in ip_list:
-                                ip_list_udp.append(log_list[5])
-                                print_log('发现新ip '+exe+'--udp\n'+log_list[5],is_print)
-                            f_conf.close()
-                else:
-                    port_list_0.append(log_list[6])
-    #print(len(ip_list_udp))
-    return ip_list_udp
+                
+            pid = port_to_pid.get(local_port)
+            if pid and pid in active_pids:
+                process_name = "unknown"
+                for exe in pid_map:
+                    if pid in pid_map[exe]: #获取ip从属进程
+                        process_name = exe
+                        break
+                
+                if not is_internal_ip(remote_ip) and not remote_ip.startswith('127.'):
+                    if remote_ip not in seen_ips:
+                        seen_ips.add(remote_ip)
+                        found_ips.append(remote_ip)
+                        print_log(f'发现新ip {process_name}--udp\n{remote_ip}', enable_logging)
+                        
+    return found_ips
 
 if __name__ == '__main__':
-    #print(search_pid(['aria2c.exe','dlpc.exe','chrome.exe']))
-    #print(pid_dist)
-    udp_crawl(['aria2c.exe'])
+    udp_crawl(['aria2c.exe'], 1, set())

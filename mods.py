@@ -2,30 +2,43 @@
 
 import os
 import tkinter as tk
+from functools import reduce
 
-def print_log(text,is_print):#is_print为后台打印参数
-    if is_print == 1:
-        print(text)
+#----------判断内网ip---------------#
+def ip_into_int(ip):
+    return reduce(lambda x,y:(x<<8)+y,map(int,ip.split('.')))
+
+def is_internal_ip(ip):
+    ip_int = ip_into_int(ip)
+    net_a = ip_into_int('10.255.255.255') >> 24
+    net_b = ip_into_int('172.31.255.255') >> 20
+    net_c = ip_into_int('192.168.255.255') >> 16
+    return ip_int >> 24 == net_a or ip_int >>20 == net_b or ip_int >> 16 == net_c
+#----------判断内网ip---------------#
+
+def print_log(log_message, enable_logging):#enable_logging为后台打印参数
+    if enable_logging == 1:
+        print(log_message)
         f_log = open('log.txt', 'a')
-        f_log.write(text + '\n')
+        f_log.write(log_message + '\n')
         f_log.close()
-    elif is_print == 0:
-        #print(text)
+    elif enable_logging == 0:
+        #print(log_message)
         f_log = open('log.txt', 'a')
-        f_log.write(text+'\n')
+        f_log.write(log_message+'\n')
         f_log.close()
 
-def path_mod(path,exe_list):
-    #exe_list = []
-    for i in os.listdir(path):
-        #print(path+i)
-        if os.path.exists(path+'/'+i+'/'):#检测是否为文件夹
-            path_mod(path+'/'+i+'/',exe_list)
+def get_executables_in_dir(directory_path, process_list):
+    #process_list = []
+    for i in os.listdir(directory_path):
+        #print(directory_path+i)
+        if os.path.exists(directory_path+'/'+i+'/'):#检测是否为文件夹
+            get_executables_in_dir(directory_path+'/'+i+'/', process_list)
         else:
             if i.endswith('.exe'):
                 #print(i)
-                exe_list.append(i)
-    return exe_list
+                process_list.append(i)
+    return process_list
 
 class ToolTip(object):
     def __init__(self, widget):
@@ -57,7 +70,7 @@ class ToolTip(object):
         if tw:
             tw.destroy()
 
-def createToolTip(widget, text):
+def create_tooltip(widget, text):
     toolTip = ToolTip(widget)
 
     def enter(event):
@@ -70,4 +83,4 @@ def createToolTip(widget, text):
     widget.bind('<Leave>', leave)
 
 if __name__ == '__main__':
-    print(path_mod('D:\TIM',[]))
+    print(get_executables_in_dir('D:\TIM',[]))

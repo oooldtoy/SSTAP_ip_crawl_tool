@@ -1,0 +1,19 @@
+auclt.exe,minibrowser.exe,QPerfHelper.exe,QQCallaq.exe,QQCallbr.exe,QQCallcs.exe,QQCalldt.exe,QQCalleu.exe,QQCallfv.exe,QQCallgw.exe,QQCallgz.exe,QQCallhx.exe,QQCalliy.exe,QQCallka.exe,QQCalllb.exe,QQCallmc.exe,QQCallnd.exe,QQCallpf.exe,QQCallqg.exe,QQCallrh.exe,QQCallsi.exe,QQCalltg.exe,QQCalluk.exe,QQCallvl.exe,QQCallwm.exe,QQCallxn.exe,QQCallyo.exe,QQCallzp.exe,QQExternal.exe,QQExternalEx.exe,bugreport.exe,cabarc.exe,QQLiveBrowser.exe,QQLiveInstaller.exe,QQLivePlayer.exe,QQLivePlayerBrowser.exe,uninst.exe,QQPcmgrDownload.exe,QQSafeUD.exe,QQScLauncher.exe,QQUrlMgr.exe,QQSetupEx.exe,StorageTool.exe,Tencentdl.exe,bugreport.exe,cabarc.exe,QQLiveInstaller.exe,TencentVideoMPlayer.exe,TIM.exe,TIMApp.exe,Timsh.exe,Timwp.exe,TxBugReport.exe,TXPlatform.exe,QQExternal.exe,TIMUninst.exe,txupd.exe
+正在检测['auclt.exe', 'minibrowser.exe', 'QPerfHelper.exe', 'QQCallaq.exe', 'QQCallbr.exe', 'QQCallcs.exe', 'QQCalldt.exe', 'QQCalleu.exe', 'QQCallfv.exe', 'QQCallgw.exe', 'QQCallgz.exe', 'QQCallhx.exe', 'QQCalliy.exe', 'QQCallka.exe', 'QQCalllb.exe', 'QQCallmc.exe', 'QQCallnd.exe', 'QQCallpf.exe', 'QQCallqg.exe', 'QQCallrh.exe', 'QQCallsi.exe', 'QQCalltg.exe', 'QQCalluk.exe', 'QQCallvl.exe', 'QQCallwm.exe', 'QQCallxn.exe', 'QQCallyo.exe', 'QQCallzp.exe', 'QQExternal.exe', 'QQExternalEx.exe', 'bugreport.exe', 'cabarc.exe', 'QQLiveBrowser.exe', 'QQLiveInstaller.exe', 'QQLivePlayer.exe', 'QQLivePlayerBrowser.exe', 'uninst.exe', 'QQPcmgrDownload.exe', 'QQSafeUD.exe', 'QQScLauncher.exe', 'QQUrlMgr.exe', 'QQSetupEx.exe', 'StorageTool.exe', 'Tencentdl.exe', 'bugreport.exe', 'cabarc.exe', 'QQLiveInstaller.exe', 'TencentVideoMPlayer.exe', 'TIM.exe', 'TIMApp.exe', 'Timsh.exe', 'Timwp.exe', 'TxBugReport.exe', 'TXPlatform.exe', 'QQExternal.exe', 'TIMUninst.exe', 'txupd.exe']远程ip,可随时关闭窗口停止终止程序。
+现在你可以打开全局，并启动游戏，发现的ip将会自动记录到当前目录的rules文件中
+发现新ip TIM.exe--tcp
+59.36.121.244
+发现新ip TIM.exe--tcp
+49.7.253.58
+发现新ip TIM.exe--tcp
+121.14.193.44
+发现新ip TIM.exe--tcp
+113.108.81.63
+发现新ip TIM.exe--tcp
+113.108.27.116
+发现新ip TIM.exe--tcp
+183.47.109.60
+发现新ip TIM.exe--tcp
+123.54.208.169
+发现新ip TIM.exe--tcp
+221.238.80.103
